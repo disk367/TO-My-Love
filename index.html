@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sayang! ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #ff6b81;
+            --secondary: #ff9a9e;
+            --gold: #ffd700;
+            --light: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            color: var(--light);
+            /* Background Gradasi Animasi (Lebih Gelap di awal agar kontras) */
+            background: linear-gradient(-45deg, #1a1a2e, #4a1c40, #e73c7e, #ee7752);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+        }
+
+        /* --- LAYER 0: STATIC STARS (Agar tidak polos) --- */
+        body::after {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 5px),
+            radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+            radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            opacity: 0.4; z-index: 0; pointer-events: none;
+        }
+
+        .love-pattern {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            
+            /* Kode SVG Hati */
+            /* width='60' height='60' = Jarak antar hati */
+            /* fill-opacity='0.05' = Transparansi (semakin kecil semakin samar) */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 45C30 45 50 30 50 15C50 5 40 0 30 10C20 0 10 5 10 15C10 30 30 45 30 45Z' fill='%23ffffff' fill-opacity='0.08'/%3E%3C/svg%3E");
+            
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- KURSOR HATI MEWAH & BERDETAK --- */
+        /* --- KURSOR HATI NEON BERDETAK --- */
+        .ti-cursor { 
+            color: #ff6b81 !important; /* Warna Pink Solid */
+            font-weight: bold !important;
+            font-size: 1.3rem !important;
+            line-height: 1 !important;
+            display: inline-block !important;
+            
+            /* Efek Neon Glow (Cahaya) */
+            text-shadow: 0 0 5px #ff6b81, 0 0 10px #ff6b81 !important;
+            
+            /* Animasi Detak Jantung */
+            animation: none !important; /* Matikan kedip bawaan */
+            animation: cursorHeartBeat 0.8s infinite alternate !important;
+        }
+
+        /* Keyframes untuk animasi detak */
+        @keyframes cursorHeartBeat {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.25); opacity: 0.8; }
+        }
+
+        /* --- LAYER 1: AURORA BLOBS (DIPERTEGAS OPACITY-NYA) --- */
+        .blob-cont {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        .blob {
+            position: absolute; border-radius: 50%; 
+            filter: blur(50px); opacity: 0.7; /* Opacity dinaikkan agar tidak polos */
+            animation: floatBlob 15s infinite alternate;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: #ff6b81; }
+        .blob-2 { bottom: -20%; right: -20%; width: 60vw; height: 60vw; background: #6c5ce7; animation-delay: -5s; }
+        .blob-3 { top: 30%; left: 40%; width: 40vw; height: 40vw; background: #fd79a8; opacity: 0.5; animation-duration: 25s; }
+        
+        @keyframes floatBlob { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 40px) scale(1.1); } }
+
+        /* --- LAYER 2: TEXTURE OVERLAY --- */
+        .texture-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 2;
+        }
+
+        /* --- LAYER 3: ANIMATION GROUP (Bintang & Partikel) --- */
+        #parallax-group {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 5;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Kunang-kunang */
+        .firefly {
+            position: absolute; width: 4px; height: 4px; background-color: var(--gold);
+            border-radius: 50%; box-shadow: 0 0 15px var(--gold);
+            animation: pulse 3s infinite alternate; opacity: 0.8;
+        }
+        @keyframes pulse { 0% { opacity: 0.3; scale: 0.8; } 100% { opacity: 1; scale: 1.2; } }
+
+        /* Hati & Daun Terbang */
+        .romantic-particle {
+            position: absolute; bottom: -50px; font-size: 20px;
+            animation: floatUpRotate linear infinite; opacity: 0.9;
+            text-shadow: 0 0 10px rgba(255,105,180,0.6);
+        }
+        .particle-heart { color: #ff6b81; } .particle-petal { color: #ff9a9e; font-size: 16px; }
+        @keyframes floatUpRotate { 
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; } 
+            10% { opacity: 1; } 90% { opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg) translateX(50px); opacity: 0; } 
+        }
+
+        /* --- SHOOTING STAR (METEORIT) - DIKEMBALIKAN KE VERSI YANG BERHASIL --- */
+        .shooting-star {
+            position: absolute; top: 50%; left: 50%; width: 4px; height: 4px;
+            background: #fff; border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(255,255,255,0.1), 0 0 0 8px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,1);
+            animation: shoot 3s linear infinite; opacity: 0;
+            z-index: 10;
+        }
+        .shooting-star::before {
+            content: ''; position: absolute; top: 50%; transform: translateY(-50%); width: 300px; height: 1px;
+            background: linear-gradient(90deg, #fff, transparent);
+        }
+        @keyframes shoot {
+            0% { transform: rotate(315deg) translateX(0); opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: rotate(315deg) translateX(-1500px); opacity: 0; }
+        }
+
+        /* --- CLOUDS --- */
+        .clouds {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 150px;
+            background: url('https://i.imgur.com/Kbd7m1Q.png') repeat-x; background-size: 1000px 100%;
+            z-index: 4; opacity: 0.6; filter: brightness(0.8); animation: moveClouds 30s linear infinite;
+        }
+        @keyframes moveClouds { from { background-position: 0 0; } to { background-position: 1000px 0; } }
+
+        /* --- CONTAINER (KARTU) --- */
+        .container { position: relative; z-index: 20; width: 90%; max-width: 500px; perspective: 1000px; }
+        .card {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.3); padding: 2.5rem; text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.05);
+            animation: floatCard 6s ease-in-out infinite; display: none;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        .title-style {
+            font-family: 'Great Vibes', cursive; font-size: 3.8rem;
+            padding: 1px 0; line-height: 1.4; margin-bottom: 5px;
+            background: linear-gradient(to right, #fff 20%, #ff9a9e 30%, #ff6b81 70%, #fff 80%);
+            background-size: 200% auto; color: #fff; 
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shineText 3s linear infinite; filter: drop-shadow(0 0 15px rgba(255, 107, 129, 0.5));
+            display: inline-block; width: 100%;
+        }
+        @keyframes shineText { to { background-position: 200% center; } }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes floatCard { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+        /* --- SUBTITLE BADGE (TENGGELAM) --- */
+        .subtitle-badge {
+            display: inline-flex; align-items: center; justify-content: center; gap: 15px;
+            padding: 12px 35px; border-radius: 50px; margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.25);
+            box-shadow: inset 3px 3px 6px rgba(0,0,0,0.4), inset -1px -1px 3px rgba(255,255,255,0.1), 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(0,0,0,0.2);
+            font-size: 0.75rem; letter-spacing: 3px; font-weight: 700; color: rgba(255,255,255,0.85); text-transform: uppercase;
+            position: relative; overflow: hidden; backdrop-filter: blur(5px);
+        }
+        .subtitle-badge::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg); animation: badgeShine 4s infinite;
+        }
+        @keyframes badgeShine { 0%, 50% { left: -100%; } 100% { left: 200%; } }
+
+        .icon-crown { color: #ffd700; filter: drop-shadow(0 0 5px #ffd700); animation: crownTilt 3s ease-in-out infinite; }
+        .icon-heart { color: #ff6b81; filter: drop-shadow(0 0 5px #ff6b81); animation: heartBeat 1.5s infinite; }
+        @keyframes crownTilt { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
+        @keyframes heartBeat { 0% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } }
+
+        /* --- BUTTONS --- */
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; border: none; padding: 14px 40px;
+            font-size: 1.1rem; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 107, 129, 0.5);
+            transition: transform 0.2s; font-weight: 700; margin: 5px; position: relative; overflow: hidden;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .btn::after { content:''; position: absolute; top: -50%; left: -60%; width: 20%; height: 200%; background: rgba(255,255,255,0.4); transform: rotate(25deg); animation: shineBtn 3s infinite; }
+        @keyframes shineBtn { to { left: 150%; } }
+        .btn-dodge { background: #555; box-shadow: none; } .btn-dodge::after { display: none; }
+
+        /* --- POLAROID --- */
+        .polaroid-wrapper {
+            background: white; padding: 12px 12px 40px 12px; display: inline-block; transform: rotate(-3deg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); margin-bottom: 25px; transition: transform 0.3s;
+            animation: polaroidFloat 3s ease-in-out infinite;
+        }
+        .polaroid-wrapper:hover { animation: none; transform: rotate(0deg) scale(1.05); }
+        .polaroid-img { width: 100%; max-width: 260px; height: auto; display: block; filter: sepia(10%); }
+        @keyframes polaroidFloat { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-3deg) translateY(-5px); } }
+
+        .message-box { background: rgba(0,0,0,0.25); border-radius: 15px; padding: 20px; text-align: left; margin-top: 20px; border-left: 5px solid var(--primary); }
+        .sticker { position: fixed; width: 110px; z-index: 30; pointer-events: none; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)); opacity: 0.9;}
+        .sticker-l { bottom: 15px; left: 15px; animation: bounce 3s infinite ease-in-out; }
+        .sticker-r { bottom: 15px; right: 15px; animation: sway 4s infinite ease-in-out; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="blob-cont">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div class="love-pattern"></div>
+    <div class="texture-overlay"></div>
+    
+    <div id="parallax-group">
+        <div id="fireflies-container"></div>
+        <div id="particle-container"></div>
+        </div>
+
+    <div class="clouds"></div>
+
+    <img src="https://media.tenor.com/dg7Th23TzFUAAAAj/cat-vodk.gif" class="sticker sticker-l">
+    <img src="https://media.tenor.com/ffG8ZgTeQ74AAAAj/peach-and-goma-cute.gif" class="sticker sticker-r" style="transform: scaleX(-1);">
+
+    <audio id="bg-music" loop>
+        <source src="https://open.spotify.com/track/38Z9ira4cManq7mw70Px81?si=57693262f761471a" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div id="gate" class="card" style="display: block;">
+            <h1 class="title-style">Hai Cantik! ✨</h1>
+            <p style="color: #ffebee;">Selamat datang Cintaakuu....</p>
+            <button class="btn" onclick="nextPage('questions')">Masuk ❤️</button>
+        </div>
+
+        <div id="questions" class="card">
+            <div id="q-content"></div>
+        </div>
+
+        <div id="final" class="card">
+            <div class="polaroid-wrapper">
+                <img src="https://i.pinimg.com/564x/a2/8c/ec/a28cec6699a777651a2579b764c67674.jpg" class="polaroid-img" alt="My Love">
+            </div>
+            
+            <h1 class="title-style">Happy Birthday!</h1>
+            
+            <div class="subtitle-badge">
+                <i class="fas fa-crown icon-crown"></i>
+                To My Favorite Person
+                <i class="fas fa-heart icon-heart"></i>
+            </div>
+            
+            <div class="message-box">
+                <span id="typewriter"></span>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.8rem; color: var(--secondary);">Made with full of ❤️</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+
+    <script>
+        // --- PARALLAX MOUSE EFFECT ---
+        document.addEventListener("mousemove", (e) => {
+            const glare = document.getElementById("parallax-group");
+            let x = (window.innerWidth / 2 - e.pageX) / 30;
+            let y = (window.innerHeight / 2 - e.pageY) / 30;
+            glare.style.transform = `translate(${x}px, ${y}px)`;
+        });
+
+        // --- BACKGROUND GENERATORS ---
+        
+        // 1. Fireflies
+        const fireflyContainer = document.getElementById('fireflies-container');
+        for (let i = 0; i < 35; i++) {
+            const fly = document.createElement('div');
+            fly.classList.add('firefly');
+            fly.style.left = Math.random() * 100 + 'vw';
+            fly.style.top = Math.random() * 100 + 'vh';
+            fly.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            fireflyContainer.appendChild(fly);
+        }
+
+        // 2. Romantic Particles (Hati & Daun)
+        const particleContainer = document.getElementById('particle-container');
+        const particleTypes = ['fa-heart', 'fa-heart', 'fa-leaf']; 
+        
+        function createRomanticParticle() {
+            const particle = document.createElement('i');
+            const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+            particle.classList.add('fas', type, 'romantic-particle');
+            if(type === 'fa-heart') particle.classList.add('particle-heart'); 
+            else particle.classList.add('particle-petal');
+            
+            particle.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 15 + 10; 
+            particle.style.fontSize = size + 'px';
+            const duration = Math.random() * 5 + 8; 
+            particle.style.animationDuration = duration + 's';
+            particle.style.transform = `rotate(${Math.random() * 360}deg)`;
+            particleContainer.appendChild(particle);
+            setTimeout(() => { particle.remove(); }, duration * 1000);
+        }
+        setInterval(createRomanticParticle, 400);
+
+        // 3. SHOOTING STARS (METEORIT) - KEMBALI KE VERSI YANG BERHASIL
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.classList.add('shooting-star');
+            // Posisi start random di atas/kanan
+            star.style.top = Math.random() * -200 + 'px';
+            star.style.left = Math.random() * (window.innerWidth + 200) + 'px';
+            // Tambahkan ke parallax group
+            document.getElementById('parallax-group').appendChild(star);
+            // Hapus setelah animasi selesai
+            setTimeout(() => { star.remove(); }, 3500);
+        }
+        // Jalankan setiap 1.5 detik (cukup sering)
+        setInterval(createShootingStar, 1500);
+
+
+        // --- LOGIC PERTANYAAN ---
+        const questionsList = [
+            { text: "Coba tebak, siapa yang paling aku sayang? 🤔", answers: [{text:"Aku dong! 🙋‍♀️", next:true}, {text:"Gatau deh", next:false, alert:"Masa gatau sih! 🥺"}] },
+            { text: "Kalo aku bawelin, artinya...", answers: [{text:"Aku Peduli ❤️", next:true}, {text:"Aku Nyebelin", next:false, alert:"Dih jahat bgt :("}] },
+            { text: "Sayang gak sama aku?", answers: [{text:"Sayang Banget Pol! 🥰", next:true}, {text:"Enggak 😝", type:"dodge"}] }
+        ];
+
+        const finalMessage = [
+            "Happy Birthday, Cintaakuuu! 🎉🎂",
+            "",
+            "Selamat yaa udah nambah tua hehehe. 🤭",
+            "Semoga di usia yang bertambah ini, kamu makin bahagia, makin pinter, sehat selalu, dan...",
+            "Makin sayang sama aku pastinya! hihi. 😘",
+            "Semoga semua impian dan harapan kamu tercapai yaa cintaakuu.",
+            "Maaf kalo aku kadang ngeselin  hehe,",
+            "dan juga aku harap km bisa lebih terbuka lagi sama aku",
+            "dan kita harus selalu bersama-sama melewati semua masalah maupun rintangan",
+            "Maaf cuma bisa kasih ginian, soalnya hadiahnya belum sampai cintaaaa. 😅",
+            "I lovee you so muchhh! ❤️❤️❤️",
+            "Dari, Yang selalu sayang kamu. 💖",
+
+        ];
+
+        let currentQ = 0;
+        const audio = document.getElementById('bg-music');
+
+        function nextPage(id) {
+            document.querySelectorAll('.card').forEach(el => el.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+            if(id === 'questions') {
+                audio.play().catch(() => console.log("Tap untuk musik"));
+                loadQuestion();
+            }
+        }
+
+        function loadQuestion() {
+            const q = questionsList[currentQ];
+            const content = document.getElementById('q-content');
+            let btns = `<h2 class="title-style" style="margin-bottom:25px; font-size:1.8rem;">${q.text}</h2><div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">`;
+            q.answers.forEach(a => {
+                if(a.type === 'dodge') {
+                    btns += `<button class="btn btn-dodge" onmouseover="dodge(this)" ontouchstart="dodge(this)">${a.text}</button>`;
+                } else {
+                    btns += `<button class="btn" onclick="answer(${a.next}, '${a.alert||''}')">${a.text}</button>`;
+                }
+            });
+            content.innerHTML = btns + '</div>';
+        }
+
+        function answer(next, alertTxt) {
+            if(next) { currentQ++; (currentQ < questionsList.length) ? loadQuestion() : showFinal(); } else { alert(alertTxt); }
+        }
+
+        function dodge(btn) {
+            btn.style.position = 'absolute';
+            btn.style.left = Math.random() * 70 + 10 + '%';
+            btn.style.top = Math.random() * 70 + 10 + '%';
+        }
+
+        function showFinal() {
+            document.querySelectorAll('.card').forEach(el => el.style.display = 'none');
+            const final = document.getElementById('final');
+            final.style.display = 'block';
+            final.style.animation = 'floatCard 6s ease-in-out infinite';
+            fireConfetti();
+            new TypeIt("#typewriter", { strings: finalMessage, speed: 45, loop: false, nextStringDelay: 1000, cursorChar: "♥" }).go();
+        }
+        
+        function fireConfetti() {
+            const duration = 3000, end = Date.now() + duration;
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff6b81', '#ffd700'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff6b81', '#ffd700'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+    </script>
+</body>
+</html>
